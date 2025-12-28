@@ -29,7 +29,7 @@ app.get('/api/health', async (req, res) => {
     await sequelize.authenticate();
     // Only return 200 if DB connection succeeds
     res.status(200).json({ status: 'ok', database: 'connected' });
-  } catch (error) {
+  }catch (error) {
     console.error('Health Check Failed:', error);
     // Return 503 Service Unavailable if DB is down
     res.status(503).json({ 
@@ -56,6 +56,7 @@ app.use((err, req, res, next) => {
     error: process.env.NODE_ENV === 'development' ? err.message : undefined
   });
 });
+
 
 // Start the Server
 const PORT = process.env.PORT || 5000;
