@@ -64,28 +64,37 @@ export default function ProjectDetails() {
     }
   };
 
-  if (!project) return <div>Loading...</div>;
+  if (!project) return <div className="text-white">Loading...</div>;
 
   return (
     <div className="space-y-6">
-      <Link to="/projects" className="flex items-center text-gray-500 hover:text-indigo-600 transition">
+      {/* CHANGED: text-gray-500 -> text-gray-400, hover:text-indigo-600 -> hover:text-indigo-400 */}
+      <Link to="/projects" className="flex items-center text-gray-400 hover:text-indigo-400 transition">
         <ArrowLeft className="h-4 w-4 mr-1" /> Back to Projects
       </Link>
 
       {/* Project Header */}
-      <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+      {/* CHANGED: bg-white -> bg-gray-800, border-gray-200 -> border-gray-700 */}
+      <div className="bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-700">
         <div className="flex justify-between items-start">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">{project.name}</h1>
-            <p className="text-gray-500">{project.description}</p>
+            {/* CHANGED: text-gray-900 -> text-white */}
+            <h1 className="text-3xl font-bold text-white mb-2">{project.name}</h1>
+            {/* CHANGED: text-gray-500 -> text-gray-400 */}
+            <p className="text-gray-400">{project.description}</p>
           </div>
           <span className={`px-3 py-1 rounded-full text-sm font-semibold capitalize ${
-            project.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'
+            project.status === 'active' 
+              // CHANGED: bg-green-100 -> bg-green-900/30, text-green-800 -> text-green-400
+              ? 'bg-green-900/30 text-green-400' 
+              // CHANGED: bg-gray-100 -> bg-gray-700, text-gray-600 -> text-gray-300
+              : 'bg-gray-700 text-gray-300'
           }`}>
             {project.status}
           </span>
         </div>
-        <div className="mt-6 flex items-center gap-6 text-sm text-gray-500">
+        {/* CHANGED: text-gray-500 -> text-gray-400 */}
+        <div className="mt-6 flex items-center gap-6 text-sm text-gray-400">
           <div className="flex items-center gap-2">
             <Calendar className="h-4 w-4" />
             Created {new Date(project.createdAt).toLocaleDateString()}
@@ -100,10 +109,12 @@ export default function ProjectDetails() {
       {/* Tasks Section */}
       <div>
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold text-gray-900">Tasks</h2>
+          {/* CHANGED: text-gray-900 -> text-white */}
+          <h2 className="text-xl font-bold text-white">Tasks</h2>
           <button 
             onClick={() => setShowTaskForm(!showTaskForm)}
-            className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition shadow-sm text-sm font-medium"
+            // CHANGED: bg-indigo-600 -> bg-indigo-600 (kept same), hover:bg-indigo-700 -> hover:bg-indigo-500
+            className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-500 transition shadow-sm text-sm font-medium"
           >
             {showTaskForm ? 'Cancel' : <><Plus className="h-4 w-4" /> Add Task</>}
           </button>
@@ -111,17 +122,20 @@ export default function ProjectDetails() {
 
         {/* Task Form */}
         {showTaskForm && (
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 mb-6 animate-fade-in-down">
+          // CHANGED: bg-white -> bg-gray-800, border-gray-200 -> border-gray-700
+          <div className="bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-700 mb-6 animate-fade-in-down">
             <form onSubmit={handleCreateTask} className="flex gap-4">
               <input 
-                className="flex-1 border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                // CHANGED: border-gray-300 -> border-gray-600, bg-gray-700, text-white, placeholder-gray-400
+                className="flex-1 border border-gray-600 bg-gray-700 text-white placeholder-gray-400 px-4 py-2 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
                 placeholder="What needs to be done?"
                 value={newTask.title}
                 onChange={(e) => setNewTask({...newTask, title: e.target.value})}
                 required
               />
               <select 
-                className="border border-gray-300 px-4 py-2 rounded-lg outline-none bg-white"
+                // CHANGED: border-gray-300 -> border-gray-600, bg-gray-700, text-white
+                className="border border-gray-600 px-4 py-2 rounded-lg outline-none bg-gray-700 text-white"
                 value={newTask.status}
                 onChange={(e) => setNewTask({...newTask, status: e.target.value})}
               >
@@ -129,7 +143,7 @@ export default function ProjectDetails() {
                 <option value="in_progress">In Progress</option>
                 <option value="done">Done</option>
               </select>
-              <button className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-medium">
+              <button className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-500 font-medium">
                 Save
               </button>
             </form>
@@ -139,16 +153,29 @@ export default function ProjectDetails() {
         {/* Task List */}
         <div className="space-y-3">
           {tasks.map((task) => (
-            <div key={task.id} className="group bg-white p-4 rounded-lg border border-gray-200 hover:shadow-md transition-all flex items-center justify-between">
+            // CHANGED: bg-white -> bg-gray-800, border-gray-200 -> border-gray-700
+            <div key={task.id} className="group bg-gray-800 p-4 rounded-lg border border-gray-700 hover:shadow-md transition-all flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <div className={`p-2 rounded-full ${
-                  task.status === 'done' ? 'bg-green-100 text-green-600' : 
-                  task.status === 'in_progress' ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-400'
+                  task.status === 'done' 
+                    // CHANGED: bg-green-100 -> bg-green-900/30, text-green-600 -> text-green-400
+                    ? 'bg-green-900/30 text-green-400' : 
+                  task.status === 'in_progress' 
+                    // CHANGED: bg-blue-100 -> bg-blue-900/30, text-blue-600 -> text-blue-400
+                    ? 'bg-blue-900/30 text-blue-400' 
+                    // CHANGED: bg-gray-100 -> bg-gray-700, text-gray-400 -> text-gray-400
+                    : 'bg-gray-700 text-gray-400'
                 }`}>
                   {task.status === 'done' ? <CheckCircle className="h-5 w-5" /> : <Clock className="h-5 w-5" />}
                 </div>
                 <div>
-                  <p className={`font-medium ${task.status === 'done' ? 'text-gray-400 line-through' : 'text-gray-900'}`}>
+                  <p className={`font-medium ${
+                    task.status === 'done' 
+                      // CHANGED: text-gray-400 -> text-gray-500
+                      ? 'text-gray-500 line-through' 
+                      // CHANGED: text-gray-900 -> text-white
+                      : 'text-white'
+                  }`}>
                     {task.title}
                   </p>
                 </div>
@@ -156,19 +183,21 @@ export default function ProjectDetails() {
 
               <div className="flex items-center gap-4">
                 <select 
-                  className="text-sm border-none bg-transparent font-medium text-gray-500 focus:ring-0 cursor-pointer hover:text-indigo-600"
+                  // CHANGED: text-gray-500 -> text-gray-400, hover:text-indigo-600 -> hover:text-indigo-400
+                  className="text-sm border-none bg-transparent font-medium text-gray-400 focus:ring-0 cursor-pointer hover:text-indigo-400"
                   value={task.status}
                   onChange={(e) => handleUpdateStatus(task.id, e.target.value)}
                 >
-                  <option value="todo">To Do</option>
-                  <option value="in_progress">In Progress</option>
-                  <option value="done">Done</option>
+                  <option className="bg-gray-800 text-white" value="todo">To Do</option>
+                  <option className="bg-gray-800 text-white" value="in_progress">In Progress</option>
+                  <option className="bg-gray-800 text-white" value="done">Done</option>
                 </select>
 
                 {/* DELETE BUTTON */}
                 <button 
                   onClick={() => handleDeleteTask(task.id)}
-                  className="text-gray-300 hover:text-red-500 hover:bg-red-50 p-2 rounded-full transition-colors opacity-0 group-hover:opacity-100"
+                  // CHANGED: text-gray-300 -> text-gray-600, hover:text-red-500 -> hover:text-red-400, hover:bg-red-50 -> hover:bg-red-900/20
+                  className="text-gray-600 hover:text-red-400 hover:bg-red-900/20 p-2 rounded-full transition-colors opacity-0 group-hover:opacity-100"
                   title="Delete Task"
                 >
                   <Trash2 className="h-4 w-4" />
@@ -178,8 +207,10 @@ export default function ProjectDetails() {
           ))}
 
           {tasks.length === 0 && !showTaskForm && (
-            <div className="text-center py-10 bg-gray-50 rounded-lg border border-dashed border-gray-300">
-              <p className="text-gray-500">No tasks found for this project.</p>
+            // CHANGED: bg-gray-50 -> bg-gray-800/50, border-gray-300 -> border-gray-700
+            <div className="text-center py-10 bg-gray-800/50 rounded-lg border border-dashed border-gray-700">
+              {/* CHANGED: text-gray-500 -> text-gray-400 */}
+              <p className="text-gray-400">No tasks found for this project.</p>
             </div>
           )}
         </div>
