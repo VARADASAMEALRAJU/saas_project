@@ -33,49 +33,61 @@ export default function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded shadow-md">
+    // CHANGED: bg-gray-100 -> bg-gray-900 (Dark Background)
+    <div className="flex items-center justify-center min-h-screen bg-gray-900">
+      
+      {/* CHANGED: bg-white -> bg-gray-800 (Dark Card), Added border-gray-700 */}
+      <div className="w-full max-w-md p-8 space-y-6 bg-gray-800 border border-gray-700 rounded shadow-md">
+        
         <div className="text-center">
-          <h2 className="text-2xl font-bold">Welcome Back</h2>
-          <p className="text-gray-500">Sign in to your account</p>
+          {/* CHANGED: text color to white */}
+          <h2 className="text-2xl font-bold text-white">Welcome Back</h2>
+          {/* CHANGED: text-gray-500 -> text-gray-400 */}
+          <p className="text-gray-400">Sign in to your account</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           
-          {/* Workspace Field - Critical for Multi-Tenancy */}
+          {/* Workspace Field */}
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            {/* CHANGED: text-gray-700 -> text-gray-300 */}
+            <label className="block text-sm font-medium text-gray-300">
               Workspace (Subdomain)
             </label>
             <input
               type="text"
               name="tenantSubdomain"
               placeholder="e.g. demo (Leave empty for Super Admin)"
-              className="w-full px-3 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500"
+              // CHANGED: Added bg-gray-700, text-white, border-gray-600, placeholder-gray-500
+              className="w-full px-3 py-2 mt-1 text-white placeholder-gray-500 bg-gray-700 border border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 focus:outline-none focus:ring-2"
               value={formData.tenantSubdomain}
               onChange={handleChange}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Email</label>
+            {/* CHANGED: text-gray-700 -> text-gray-300 */}
+            <label className="block text-sm font-medium text-gray-300">Email</label>
             <input
               type="email"
               name="email"
               required
-              className="w-full px-3 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500"
+              // CHANGED: Dark input styles
+              className="w-full px-3 py-2 mt-1 text-white placeholder-gray-500 bg-gray-700 border border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 focus:outline-none focus:ring-2"
               value={formData.email}
               onChange={handleChange}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Password</label>
+            {/* CHANGED: text-gray-700 -> text-gray-300 */}
+            <label className="block text-sm font-medium text-gray-300">Password</label>
             <input
               type="password"
               name="password"
               required
-              className="w-full px-3 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500"
+              // CHANGED: Dark input styles
+              className="w-full px-3 py-2 mt-1 text-white placeholder-gray-500 bg-gray-700 border border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 focus:outline-none focus:ring-2"
               value={formData.password}
               onChange={handleChange}
             />
@@ -83,20 +95,23 @@ export default function Login() {
 
           <button
             type="submit"
-            className="w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700"
+            // CHANGED: Added focus ring offset for dark mode accessibility
+            className="w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-blue-500"
           >
             Sign In
           </button>
         </form>
 
-        {/* --- HERE IS THE LINK YOU WANTED --- */}
-        <div className="text-sm text-center text-gray-600">
+        {/* Footer Links */}
+        {/* CHANGED: text-gray-600 -> text-gray-400 */}
+        <div className="text-sm text-center text-gray-400">
           Don't have an account?{' '}
-          <Link to="/register" className="font-medium text-blue-600 hover:underline">
+          {/* CHANGED: text-blue-600 -> text-blue-400 (Lighter blue is better on dark) */}
+          <Link to="/register" className="font-medium text-blue-400 hover:underline">
             Register User
           </Link>
           <span className="mx-2">|</span>
-          <Link to="/register-tenant" className="font-medium text-blue-600 hover:underline">
+          <Link to="/register-tenant" className="font-medium text-blue-400 hover:underline">
             Register Organization
           </Link>
         </div>

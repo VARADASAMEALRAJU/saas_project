@@ -30,36 +30,45 @@ export default function Register() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded shadow-md">
-        <h2 className="text-2xl font-bold text-center">Join Workspace</h2>
-        <p className="text-sm text-center text-gray-500">Create an account in an existing organization</p>
+    // CHANGED: bg-gray-100 -> bg-gray-900
+    <div className="flex items-center justify-center min-h-screen bg-gray-900">
+      {/* CHANGED: bg-white -> bg-gray-800, added border border-gray-700 */}
+      <div className="w-full max-w-md p-8 space-y-6 bg-gray-800 border border-gray-700 rounded shadow-md">
+        {/* CHANGED: text-gray-900 (implied) -> text-white */}
+        <h2 className="text-2xl font-bold text-center text-white">Join Workspace</h2>
+        {/* CHANGED: text-gray-500 -> text-gray-400 */}
+        <p className="text-sm text-center text-gray-400">Create an account in an existing organization</p>
         
         <form onSubmit={handleSubmit} className="space-y-4">
           
           {/* Workspace Field */}
           <div>
-            <label className="block text-sm font-medium text-gray-700">Workspace ID (Subdomain)</label>
+            {/* CHANGED: text-gray-700 -> text-gray-300 */}
+            <label className="block text-sm font-medium text-gray-300">Workspace ID (Subdomain)</label>
             <input
               type="text"
               name="tenantSubdomain"
               required
               placeholder="e.g. demo"
-              className="w-full px-3 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500"
+              // CHANGED: border-gray-300 -> border-gray-600, bg-gray-700, text-white, placeholder-gray-500
+              className="w-full px-3 py-2 mt-1 bg-gray-700 border border-gray-600 text-white placeholder-gray-500 rounded-md focus:ring-blue-500 focus:border-blue-500 outline-none"
               value={formData.tenantSubdomain}
               onChange={handleChange}
             />
-            <p className="text-xs text-gray-500 mt-1">Ask your admin for the workspace subdomain.</p>
+            {/* CHANGED: text-gray-500 -> text-gray-400 */}
+            <p className="text-xs text-gray-400 mt-1">Ask your admin for the workspace subdomain.</p>
           </div>
 
           {/* Name Field */}
           <div>
-            <label className="block text-sm font-medium text-gray-700">Full Name</label>
+            {/* CHANGED: text-gray-700 -> text-gray-300 */}
+            <label className="block text-sm font-medium text-gray-300">Full Name</label>
             <input
               type="text"
               name="fullName"
               required
-              className="w-full px-3 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500"
+              // CHANGED: Dark input styles
+              className="w-full px-3 py-2 mt-1 bg-gray-700 border border-gray-600 text-white rounded-md focus:ring-blue-500 focus:border-blue-500 outline-none"
               value={formData.fullName}
               onChange={handleChange}
             />
@@ -67,12 +76,14 @@ export default function Register() {
 
           {/* Email Field */}
           <div>
-            <label className="block text-sm font-medium text-gray-700">Email</label>
+            {/* CHANGED: text-gray-700 -> text-gray-300 */}
+            <label className="block text-sm font-medium text-gray-300">Email</label>
             <input
               type="email"
               name="email"
               required
-              className="w-full px-3 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500"
+              // CHANGED: Dark input styles
+              className="w-full px-3 py-2 mt-1 bg-gray-700 border border-gray-600 text-white rounded-md focus:ring-blue-500 focus:border-blue-500 outline-none"
               value={formData.email}
               onChange={handleChange}
             />
@@ -80,12 +91,14 @@ export default function Register() {
 
           {/* Password Field */}
           <div>
-            <label className="block text-sm font-medium text-gray-700">Password</label>
+            {/* CHANGED: text-gray-700 -> text-gray-300 */}
+            <label className="block text-sm font-medium text-gray-300">Password</label>
             <input
               type="password"
               name="password"
               required
-              className="w-full px-3 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500"
+              // CHANGED: Dark input styles
+              className="w-full px-3 py-2 mt-1 bg-gray-700 border border-gray-600 text-white rounded-md focus:ring-blue-500 focus:border-blue-500 outline-none"
               value={formData.password}
               onChange={handleChange}
             />
@@ -93,10 +106,12 @@ export default function Register() {
 
           {/* Role Field */}
           <div>
-            <label className="block text-sm font-medium text-gray-700">Role</label>
+            {/* CHANGED: text-gray-700 -> text-gray-300 */}
+            <label className="block text-sm font-medium text-gray-300">Role</label>
             <select
               name="role"
-              className="w-full px-3 py-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500"
+              // CHANGED: Dark select styles
+              className="w-full px-3 py-2 mt-1 bg-gray-700 border border-gray-600 text-white rounded-md focus:ring-blue-500 focus:border-blue-500 outline-none"
               value={formData.role}
               onChange={handleChange}
             >
@@ -108,15 +123,18 @@ export default function Register() {
 
           <button
             type="submit"
-            className="w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700"
+            // CHANGED: hover:bg-blue-700 (kept consistent), added focus ring
+            className="w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-blue-500"
           >
             Register
           </button>
         </form>
 
-        <div className="text-sm text-center text-gray-600">
+        {/* CHANGED: text-gray-600 -> text-gray-400 */}
+        <div className="text-sm text-center text-gray-400">
           Already have an account?{' '}
-          <Link to="/login" className="text-blue-600 hover:underline">
+          {/* CHANGED: text-blue-600 -> text-blue-400 */}
+          <Link to="/login" className="text-blue-400 hover:underline">
             Login here
           </Link>
         </div>
